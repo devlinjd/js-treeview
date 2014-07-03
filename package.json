@@ -1,0 +1,19 @@
+{
+  "name": "js-treeview",
+  "version": "0.0.1",
+  "description": "TreeView implemented with vanilla JavaScript",
+  "main": "treeview.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justinchmura/js-treeview.git"
+  },
+  "author": "Justin Chmura <justin.chmura@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/justinchmura/js-treeview/issues"
+  },
+  "homepage": "https://github.com/justinchmura/js-treeview"
+}
