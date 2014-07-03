@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/justinchmura/js-treeview/issues"
   },
-  "homepage": "https://github.com/justinchmura/js-treeview"
+  "homepage": "https://github.com/justinchmura/js-treeview",
+  "devDependencies": {
+    "gulp": "^3.8.5",
+    "gulp-jshint": "^1.6.4",
+    "gulp-util": "^2.2.19"
+  }
 }
