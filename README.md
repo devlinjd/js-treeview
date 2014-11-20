@@ -1,5 +1,4 @@
 # Vanilla JavaScript TreeView
-===========
 A stupid, simple tree view writtin with vanilla JS. I needed a lightweight control that just displayed data in a tree form and out popped this. I wrote a [post on my blog](http://justinchmura.com/2014/07/03/javascript-tree-view/) that goes into more depth.
 ## Dependencies
 None. I built this using only plain JavaScript so there's no external dependencies. Other than the CSS required for styling.
