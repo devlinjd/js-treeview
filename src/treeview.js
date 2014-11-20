@@ -9,7 +9,7 @@
     } else {
       root.TreeView = factory();
     }
-  }(this, function () {
+  }(window, function () {
     return (function () {
 
       /** List of events supported by the tree view */
@@ -85,7 +85,7 @@
         }).join('');
 
         click = function (e) {
-          var parent = e.currentTarget.parentNode;
+          var parent = (e.target || e.currentTarget).parentNode;
           var data = JSON.parse(parent.getAttribute('data-item'));
           var leaves = parent.parentNode.querySelector('.tree-child-leaves');
           if (leaves) {
@@ -119,7 +119,9 @@
         if (events.indexOf(name) > -1) {
           if (instance.handlers[name] && instance.handlers[name] instanceof Array) {
             forEach(instance.handlers[name], function (handle) {
-              handle.callback.apply(handle.context, args);
+              window.setTimeout(function () {
+                handle.callback.apply(handle.context, args);
+              }, 0);
             });
           }
         } else {
