@@ -1,6 +1,6 @@
 {
   "name": "js-treeview",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "TreeView implemented with vanilla JavaScript",
   "main": "treeview.js",
   "scripts": {

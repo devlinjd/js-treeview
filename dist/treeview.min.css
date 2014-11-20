@@ -1,6 +1,6 @@
 /**
  * js-treeview - TreeView implemented with vanilla JavaScript
- * @version v0.0.1
+ * @version v1.0.0
  * @link https://github.com/justinchmura/js-treeview
  * @license MIT
  */
