@@ -38,6 +38,10 @@ gulp.task('jsmin', function () {
     .pipe(gulp.dest(build));
 });
 
+gulp.task('csslint', function () {
+  return gulp.src(css).pipe(csslint());
+});
+
 gulp.task('cssmin', function () {
   return gulp.src(['./src/treeview.css'])
     .pipe(rename({ suffix: '.min' }))
