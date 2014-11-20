@@ -23,7 +23,7 @@ var banner = ['/**',
   ' */',
 ''].join('\n');
 
-gulp.task('jshint', function () {
+gulp.task('jslint', function () {
   return gulp.src(scripts)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
