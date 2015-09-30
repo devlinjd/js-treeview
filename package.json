@@ -2,7 +2,7 @@
   "name": "js-treeview",
   "version": "1.0.1",
   "description": "TreeView implemented with vanilla JavaScript",
-  "main": "treeview.js",
+  "main": "dist/treeview.min.js",
   "scripts": {
     "test": "gulp test"
   },
