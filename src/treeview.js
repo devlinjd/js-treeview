@@ -1,6 +1,6 @@
 (function (define) {
   'use strict';
-  
+
   (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
       define(factory);
@@ -14,6 +14,7 @@
 
       /** List of events supported by the tree view */
       var events = ['expand', 'collapse', 'select'];
+      var selected = null;
 
       /**
        * @constructor
@@ -21,10 +22,11 @@
        * @property {object} data The JSON object that represents the tree structure
        * @property {DOMElement} node The DOM element to render the tree in
        */
-      function TreeView(data, node) {
+      function TreeView(data, node, opts) {
         this.handlers = {};
         this.node = node;
         this.data = data;
+        this.opts = opts;
         render(this);
       }
 
@@ -47,19 +49,19 @@
       function render(self) {
         var container = document.getElementById(self.node);
         var leaves = [], click;
-        var renderLeaf = function (item) {
+        var renderLeaf = function (item, depth) {
           var leaf = document.createElement('div');
           var content = document.createElement('div');
           var text = document.createElement('div');
           var expando = document.createElement('div');
 
-          leaf.setAttribute('class', 'tree-leaf');
+          leaf.setAttribute('class', 'tree-leaf leaf-' + depth);
           content.setAttribute('class', 'tree-leaf-content');
           content.setAttribute('data-item', JSON.stringify(item));
           text.setAttribute('class', 'tree-leaf-text');
-          text.textContent = item.name;
+          text.innerHTML = item.name;
           expando.setAttribute('class', 'tree-expando expanded');
-          expando.textContent = '-';
+          expando.innerHTML = self.opts.expanded || '+';
           content.appendChild(expando);
           content.appendChild(text);
           leaf.appendChild(content);
@@ -67,7 +69,7 @@
             var children = document.createElement('div');
             children.setAttribute('class', 'tree-child-leaves');
             forEach(item.children, function (child) {
-              var childLeaf = renderLeaf(child);
+              var childLeaf = renderLeaf(child, depth + 1);
               children.appendChild(childLeaf);
             });
             leaf.appendChild(children);
@@ -78,14 +80,14 @@
         };
 
         forEach(self.data, function (item) {
-          leaves.push(renderLeaf.call(self, item));
+          leaves.push(renderLeaf.call(self, item, 0));
         });
         container.innerHTML = leaves.map(function (leaf) {
           return leaf.outerHTML;
         }).join('');
 
         click = function (e) {
-          var parent = (e.target || e.currentTarget).parentNode;
+          var parent = (e.currentTarget || e.target).parentNode;
           var data = JSON.parse(parent.getAttribute('data-item'));
           var leaves = parent.parentNode.querySelector('.tree-child-leaves');
           if (leaves) {
@@ -99,6 +101,12 @@
               target: e,
               data: data
             });
+          }
+
+          if( selected !== parent.parentNode ) {
+            selected !== null && selected.classList.remove('selected');
+            selected = parent.parentNode;
+            selected.classList.add('selected');
           }
         };
 
@@ -136,7 +144,7 @@
        */
       TreeView.prototype.expand = function (node, leaves) {
         var expando = node.querySelector('.tree-expando');
-        expando.textContent = '-';
+        expando.innerHTML = this.opts.expanded || '+';
         leaves.classList.remove('hidden');
         emit(this, 'expand', {
           target: node,
@@ -151,7 +159,7 @@
        */
       TreeView.prototype.collapse = function (node, leaves) {
         var expando = node.querySelector('.tree-expando');
-        expando.textContent = '+';
+        expando.innerHTML = this.opts.collapsed || '-';
         leaves.classList.add('hidden');
         emit(this, 'collapse', {
           target: node,
