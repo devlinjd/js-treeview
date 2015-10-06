@@ -56,6 +56,7 @@
           var expando = document.createElement('div');
 
           leaf.setAttribute('class', 'tree-leaf leaf-' + depth);
+          item.data && leaf.setAttribute('data-data', item.data);
           content.setAttribute('class', 'tree-leaf-content');
           content.setAttribute('data-item', JSON.stringify(item));
           text.setAttribute('class', 'tree-leaf-text');
@@ -96,12 +97,12 @@
             } else {
               self.collapse(parent, leaves);
             }
-          } else {
-            emit(self, 'select', {
-              target: e,
-              data: data
-            });
           }
+
+          emit(self, 'select', {
+            target: e,
+            data: data
+          });
 
           if( selected !== parent.parentNode ) {
             selected !== null && selected.classList.remove('selected');
